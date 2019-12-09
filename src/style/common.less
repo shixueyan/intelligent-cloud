@@ -1,0 +1,22 @@
+.container{
+    background: linear-gradient(to top right, #6dd2e8, #3791c1, #6dd2e8);
+    height: calc(100vh);
+    .header{
+        height: 45px;
+        position: relative;
+        line-height: 45px;
+        min-width: 520px;
+    }
+    .main{
+        height:calc(100% - 45px);
+        display:flex;
+        .nav-left{
+            height:calc(100%);
+        }
+        .content{
+            flex:1;
+            background:red;
+            height:calc(100%);
+        }
+    }
+}
