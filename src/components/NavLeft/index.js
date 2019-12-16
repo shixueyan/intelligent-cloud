@@ -1,76 +1,87 @@
-
 import React, { Component } from 'react'
 import { Row, Col,Menu,Button,Icon } from 'antd'
 import './nav.less'
+import { MenuConfig }  from '../../config'
+
+
 
 const { SubMenu } = Menu;
 class NavLeft extends Component{
-	state = {
-		collapsed: false,
-	  };
-	
-	  toggleCollapsed = () => {
+	constructor(props){
+        super(props);
+        this.state={
+            collapsed: true,
+			menuTreeNode: []
+        }
+	}
+	componentWillReceiveProps(props){
+		const collapsed=props.collapsed;
+		console.log(this.state.collapsed)
+        this.setState({collapsed});
+    }
+	componentWillMount(){
+		console.log('menuConfig')
+		console.log(MenuConfig)
+		const menuTreeNode = this._renderMenu(MenuConfig)
 		this.setState({
-		  collapsed: !this.state.collapsed,
+			menuTreeNode
+			//currentKey: window.location.hash.replace(/#|\?.*$/g, '')
+		})
+	}
+
+	_renderMenu = (data)=>{
+		return data.map((item)=>{
+			if(item.child.length>0&&item.moduleType=='0'&&item.smallIcon){
+				return (
+					<SubMenu title={
+								<span>
+									<img src={require('../../assets/'+item.smallIcon)} />
+									<span className="hidden">{item.moduleNm}</span>
+								</span>
+								} key={item.moduleId}>
+						{this._renderMenu(item.child)}
+					</SubMenu>
+				)
+			}else if(item.smallIcon&&item.moduleType=='0'){
+				return (
+					<Menu.Item key={item.moduleId} title={item.moduleNm}>
+						{/* <NavLink to={item.key}>{item.title}</NavLink> */}
+						<img src={require('../../assets/'+item.smallIcon)} />
+						<span className="hidden">{item.moduleNm}</span>
+					</Menu.Item>
+				)
+			}else {
+				return (
+					<Menu.Item key={item.moduleId} >   
+						{item.moduleNm} 
+					</Menu.Item>
+				)
+			}
+		})
+	}
+
+	toggleCollapsed = () => {
+		this.setState({
+			collapsed: !this.state.collapsed,
 		});
-	  };
+	};
+
+
 	render(){
 		return (
-			<div style={{ width: 256 }}>
-        <Button type="primary" onClick={this.toggleCollapsed} style={{ marginBottom: 16 }}>
-          <Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
-        </Button>
-        <Menu
-          defaultSelectedKeys={['1']}
-          defaultOpenKeys={['sub1']}
-          mode="inline"
-          theme="dark"
-          inlineCollapsed={this.state.collapsed}
-        >
-          <Menu.Item key="1">
-            <Icon type="pie-chart" />
-            <span>Option 1</span>
-          </Menu.Item>
-          <Menu.Item key="2">
-            <Icon type="desktop" />
-            <span>Option 2</span>
-          </Menu.Item>
-          <Menu.Item key="3">
-            <Icon type="inbox" />
-            <span>Option 3</span>
-          </Menu.Item>
-          <SubMenu
-            key="sub1"
-            title={
-              <span>
-                <Icon type="mail" />
-                <span>Navigation One</span>
-              </span>
-            }
-          >
-            <Menu.Item key="5">Option 5</Menu.Item>
-            <Menu.Item key="6">Option 6</Menu.Item>
-            <Menu.Item key="7">Option 7</Menu.Item>
-            <Menu.Item key="8">Option 8</Menu.Item>
-          </SubMenu>
-          <SubMenu
-            key="sub2"
-            title={
-              <span>
-                <Icon type="appstore" />
-                <span>Navigation Two</span>
-              </span>
-            }
-          >
-            <Menu.Item key="9">Option 9</Menu.Item>
-            <Menu.Item key="10">Option 10</Menu.Item>
-            <SubMenu key="sub3" title="Submenu">
-              <Menu.Item key="11">Option 11</Menu.Item>
-              <Menu.Item key="12">Option 12</Menu.Item>
-            </SubMenu>
-          </SubMenu>
-        </Menu>
-      </div>
+			<div className="wrapper">
+				{/* <Button type="primary" onClick={this.toggleCollapsed} style={{ marginBottom: 16 }}>
+					<Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
+				</Button> */}
+				<Menu
+				//	defaultOpenKeys={['sub1']}
+					mode="inline"
+					theme="dark"
+					inlineCollapsed={this.state.collapsed}
+				>
+					{this.state.menuTreeNode}
+        		</Menu>
+      		</div>
 		)
 	}
 }
