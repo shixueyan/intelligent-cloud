@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { Row, Col,Menu,Button,Icon } from 'antd'
 import './nav.less'
+import { connect } from 'react-redux'
+import { NavLink } from 'react-router-dom'
 import { MenuConfig }  from '../../config'
 
-
+import { switchMenu } from '../../redux'
 
 const { SubMenu } = Menu;
 class NavLeft extends Component{
@@ -12,6 +14,7 @@ class NavLeft extends Component{
         this.state={
             collapsed: true,
 			menuTreeNode: []
+
         }
 	}
 	componentWillReceiveProps(props){
@@ -27,6 +30,12 @@ class NavLeft extends Component{
 			menuTreeNode
 			//currentKey: window.location.hash.replace(/#|\?.*$/g, '')
 		})
+	}
+	_menuClick = ({item, key})=>{
+		const {dispatch} = this.props
+		if(item){
+			dispatch(switchMenu(item.props.moduleNm))
+		}
 	}
 
 	_renderMenu = (data)=>{
@@ -44,16 +53,20 @@ class NavLeft extends Component{
 				)
 			}else if(item.smallIcon&&item.moduleType=='0'){
 				return (
-					<Menu.Item key={item.moduleId} title={item.moduleNm}>
+					<Menu.Item onClick={this._menuClick} key={item.moduleId} title={item.moduleNm}>
 						{/* <NavLink to={item.key}>{item.title}</NavLink> */}
-						<img src={require('../../assets/'+item.smallIcon)} />
-						<span className="hidden">{item.moduleNm}</span>
+						<NavLink to={item.key}>
+							<img src={require('../../assets/'+item.smallIcon)} />
+							<span className="hidden">{item.moduleNm}</span>
+						</NavLink>
 					</Menu.Item>
 				)
 			}else {
 				return (
-					<Menu.Item key={item.moduleId} >   
-						{item.moduleNm} 
+					<Menu.Item onClick={this._menuClick} key={item.moduleId} >   
+						<NavLink to={item.key}>
+							{item.moduleNm} 
+						</NavLink>
 					</Menu.Item>
 				)
 			}
@@ -86,4 +99,4 @@ class NavLeft extends Component{
 	}
 }
 
-export default NavLeft
+export default connect()(NavLeft)

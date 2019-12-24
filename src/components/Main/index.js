@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router';
 import { Tabs  } from 'antd'
+import { connect } from 'react-redux'
 import './main.less'
 const { TabPane } = Tabs;
+const mapStateToProps = state => ({
+	menuName: state.menuName
+})
 class Main extends Component{
 	constructor(props) {
 		super(props);
@@ -79,4 +83,4 @@ class Main extends Component{
 	  }
 }
 
-export default Main
+export default connect(mapStateToProps)(Main)

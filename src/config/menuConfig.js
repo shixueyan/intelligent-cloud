@@ -22,6 +22,7 @@ const menuList=[
                 "helpPage":"",
                 "moduleOpCode":"common_dictionarys",
                 "moduleId":"common_dictionarys",
+                'key':'/data',
                 "child":[
 
                 ]
@@ -40,6 +41,7 @@ const menuList=[
                 "smallIcon":"",
                 "helpPage":"",
                 "moduleId":"2017112000000001",
+                'key':'/data1',
                 "child":[
 
                 ],
@@ -58,6 +60,7 @@ const menuList=[
         "smallIcon":"daping11.png",
         "helpPage":"",
         "moduleId":"common",
+        'key':'/data2',
         "child":[]
     },
     {
@@ -71,6 +74,7 @@ const menuList=[
         "smallIcon":"deploy2.png",
         "helpPage":"",
         "moduleId":"oap20171218",
+        'key':'/data3',
         "child":[],
         "moduleUrl":""
     },
@@ -89,6 +93,7 @@ const menuList=[
         "helpPage":"",
         "moduleId":"2017111600000002",
         "child":[],
+        'key':'/data4',
         "moduleUrl":""
     },
     {
@@ -97,7 +102,7 @@ const menuList=[
         "moduleType":"0",
         "moduleTarget":"",
         "moduleOpCode":"",
-        "moduleNm":"报表管理",
+        "moduleNm":"首页",
         "moduleValid":"0",
         "pModuleId":"",
         "moduleHide":"0",
@@ -105,6 +110,7 @@ const menuList=[
         "smallIcon":"system.png",
         "helpPage":"",
         "moduleId":"2017121100000000",
+        'key':'/home',
         "child":[],
         "moduleUrl":""
     }

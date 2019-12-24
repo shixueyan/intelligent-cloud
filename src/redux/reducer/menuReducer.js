@@ -12,7 +12,7 @@ export default (state = initialState, action)=>{
 		case type.SWITCH_MENU:
 			return {
 				...state,
-				menuName: action.menuName,
+				menuName: action.menuName
 			}
 		default:
 			return state
