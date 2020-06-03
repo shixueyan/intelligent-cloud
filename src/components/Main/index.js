@@ -32,36 +32,14 @@ class Main extends Component{
 		};
 	  }
 	  onChange = activeKey => {
-		
 		this.setState({ activeKey });
 		let url=(this.state.panes.filter(item=>item.key===activeKey))[0].url
 		console.log(url)
 		window.location.href='/#'+url
 	  };
-	
 	  onEdit = (targetKey, action) => {
 		this[action](targetKey);
 	  };
-	  
-	  remove = targetKey => {
-		let { activeKey } = this.state;
-		let lastIndex;
-		this.state.panes.forEach((pane, i) => {
-		  if (pane.key === targetKey) {
-			lastIndex = i - 1;
-		  }
-		});
-		const panes = this.state.panes.filter(pane => pane.key !== targetKey);
-		if (panes.length && activeKey === targetKey) {
-		  if (lastIndex >= 0) {
-			activeKey = panes[lastIndex].key;
-		  } else {
-			activeKey = panes[0].key;
-		  }
-		}
-		this.setState({ panes, activeKey });
-	  };
-	
 	  render() {
 		return (
 			<div className="main-wrapper">
