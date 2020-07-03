@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
-
+import { Row, Col } from 'antd'
+import './home.less'
 class Home extends Component{
     componentWillMount(){
         
     }
     render(){
         return (
-            <div>
+            <Row className="index-wrapper">
                 这是首页
-            </div>
+            </Row>
         )
     }
 }
